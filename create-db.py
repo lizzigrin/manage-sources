@@ -1,5 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
+import sys
+import csv
 
 """
 Tests the process to create a PostGreSQL database based on spec from property file.
@@ -23,6 +25,7 @@ def main():
    print "Your database property filename is: ", filename, "\n"
    
    # Read database properties and return list of parameters that will be used to call db creation function
+   
    
    # Call PostGreSQL with db parameters and create db
    
