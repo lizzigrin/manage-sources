@@ -26,6 +26,10 @@ def main():
    
    # Read database properties and return list of parameters that will be used to call db creation function
    
+   with open(filename,'rb') as csvFile:
+      csvReader = csv.reader(csvFile)
+      for row in csvReader:
+         print row         
    
    # Call PostGreSQL with db parameters and create db
    
