@@ -1,1 +1,4 @@
 dbname,test
+user,liz
+host,localhost
+password,changeme

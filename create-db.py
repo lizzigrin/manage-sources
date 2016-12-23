@@ -2,6 +2,7 @@
 
 import sys
 import csv
+#import psycopg2
 
 """
 Tests the process to create a PostGreSQL database based on spec from property file.
@@ -25,13 +26,22 @@ def main():
    print "Your database property filename is: ", filename, "\n"
    
    # Read database properties and return list of parameters that will be used to call db creation function
-   
+   db_dict = {}   
+
    with open(filename,'rb') as csvFile:
       csvReader = csv.reader(csvFile)
       for row in csvReader:
-         print row         
+         f_name, f_value = row
+         db_dict[f_name] = f_value
    
    # Call PostGreSQL with db parameters and create db
+   print "dbname is ",db_dict['dbname'], " user is ", db_dict['user']
+   print " host is ", db_dict['host'], " password is ", db_dict['password'] 
+   #con = connect(dbname = 'postgres', user = db_dict['user'], host = db_dict['host'], password = db_dict['password'])
+   #cur = con.cursor()
+   #cur.execute('CREATE DATABASE ' + db_dict['dbname']
+   #cur.close()
+   #con.close()
    
    # Test db exists and return schema and table list
       
