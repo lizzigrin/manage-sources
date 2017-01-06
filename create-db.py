@@ -2,7 +2,8 @@
 
 import sys
 import csv
-#import psycopg2
+import psycopg2 as pg
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 """
 Tests the process to create a PostGreSQL database based on spec from property file.
@@ -37,18 +38,24 @@ def main():
    # Call PostGreSQL with db parameters and create db
    print "dbname is ",db_dict['dbname'], " user is ", db_dict['user']
    print " host is ", db_dict['host'], " password is ", db_dict['password'] 
-   #con = connect(dbname = 'postgres', user = db_dict['user'], host = db_dict['host'], password = db_dict['password'])
-   #cur = con.cursor()
-   #cur.execute('CREATE DATABASE ' + db_dict['dbname']
-   #cur.close()
-   #con.close()
+   try:
+      con = pg.connect(dbname = 'postgres', user = db_dict['user'], host = db_dict['host'], password = db_dict['password'])
+   except OperationalError as err:
+      print("Error class is: ", type(err))
+      print("Error message is: ", err)
+
+   cur = con.cursor()
    
-   # Test db exists and return schema and table list
+   con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+
+   # Form SQL for database creation from parameter dbname supplied from db property file
+   SQL = "CREATE DATABASE " + db_dict['dbname'] + ";"
+   cur.execute(SQL)
+
+   # close connection to database
+   cur.close()
+   con.close()
       
-   # Run test to add data 
-   
-   # Prompt to ask if db should be removed - comment this step out initially
-   
    sys.exit()
    
 if __name__ == "__main__":
